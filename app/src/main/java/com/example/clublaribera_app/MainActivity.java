@@ -19,6 +19,7 @@ import androidx.appcompat.widget.Toolbar;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    public static String PATH = "http://192.168.0.100:45455";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
