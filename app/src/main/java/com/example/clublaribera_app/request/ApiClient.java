@@ -42,7 +42,7 @@ public class ApiClient {
         @POST("usuarios/registrar")
         Call<Msj> registrarUsuario(@Body Usuario user);
 
-        @POST("usuarios/login")
+        @POST("Usuarios/login")
         Call<String> login(@Body Login login);
     }
 }
