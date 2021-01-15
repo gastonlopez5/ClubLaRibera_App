@@ -10,4 +10,11 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+
+    <string name="text_signin_message">Hola, ingresa a tu cuenta</string>
+    <string name="hint_username">Email</string>
+    <string name="hint_password">Clave</string>
+    <string name="text_forgot_password">¿Olvidaste la clave?</string>
+    <string name="button_sign_in">Ingresar</string>
+    <string name="text_signin_signup">¿No tenés una cuenta? <b>Registrate</b></string>
 </resources>
