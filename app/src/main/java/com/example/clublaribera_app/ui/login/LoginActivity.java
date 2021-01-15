@@ -21,7 +21,6 @@ public class LoginActivity extends AppCompatActivity {
     private Button registro;
     private EditText email;
     private EditText password;
-    private TextView tvError;
     private LoginViewModel vm;
 
     @Override
@@ -31,10 +30,10 @@ public class LoginActivity extends AppCompatActivity {
 
         vm = ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication()).create(LoginViewModel.class);
 
-        logeo = (Button)findViewById(R.id.button);
-        registro = findViewById(R.id.btRegistro);
-        email = findViewById(R.id.etUsuario);
-        password = findViewById(R.id.etContraseña);
+        logeo = (Button)findViewById(R.id.button_signin);
+        registro = findViewById(R.id.button_signup);
+        email = findViewById(R.id.et_username);
+        password = findViewById(R.id.et_password);
 
         vm.getMsg1().observe(this, new Observer<String>() {
             @Override
