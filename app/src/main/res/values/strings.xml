@@ -17,4 +17,13 @@
     <string name="text_forgot_password">¿Olvidaste la clave?</string>
     <string name="button_sign_in">Ingresar</string>
     <string name="text_signin_signup">¿No tenés una cuenta? <b>Registrate</b></string>
+    <string name="text_signup_message">Hola, vamos a registrarnos!</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_last_name">Apeliido</string>
+    <string name="hint_phone">Teléfono</string>
+    <string name="hint_dni">DNI</string>
+    <string name="hint_confirm_password">Repetir clave</string>
+    <string name="button_sign_up">Registrarme</string>
+    <string name="text_signup_terms">Enviando los datos, estás de acuerdo con los <b>términos y condiciones</b></string>
 </resources>
