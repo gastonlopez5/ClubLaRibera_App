@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class RegistroViewModel extends AndroidViewModel {
     private MutableLiveData<Bitmap> foto;
     private MutableLiveData<String> error;
     private String msj = "Ya existe un usuario registrado con el email elegido!";
+    private String msj2 = "Ambas claves ingresadas no coinciden";
 
     public RegistroViewModel(@NonNull Application application) {
         super(application);
@@ -54,29 +56,48 @@ public class RegistroViewModel extends AndroidViewModel {
         return foto;
     }
 
-    public void registrarUsuario(Usuario u){
+    public void registrarUsuario(Usuario u, Bitmap bitmap, String repetirClave){
         if (u.getNombre().length() != 0 && u.getApellido().length() != 0 && u.getClave().length() != 0
-                && u.getTelefono().length() != 0 && u.getEmail().length() != 0){
-            Call<Msj> dato= ApiClient.getMyApiClient().registrarUsuario(u);
-            dato.enqueue(new Callback<Msj>() {
-                @Override
-                public void onResponse(Call<Msj> call, Response<Msj> response) {
-                    if (response.isSuccessful()){
-                        Toast.makeText(context, response.body().getMensaje(), Toast.LENGTH_LONG).show();
-                    } else {
-                        error.setValue(msj);
-                    }
-                }
+                && u.getTelefono().length() != 0 && u.getEmail().length() != 0 && repetirClave.length() != 0){
 
-                @Override
-                public void onFailure(Call<Msj> call, Throwable t) {
-                    Log.d("salida",t.getMessage());
-                    t.printStackTrace();
-                }
-            });
+            if (repetirClave == u.getClave()){
+                if(bitmap != null){u.setFotoPerfil(encodeImage(bitmap));}
+
+                Call<Msj> dato= ApiClient.getMyApiClient().registrarUsuario(u);
+                dato.enqueue(new Callback<Msj>() {
+                    @Override
+                    public void onResponse(Call<Msj> call, Response<Msj> response) {
+                        if (response.isSuccessful()){
+                            Toast.makeText(context, response.body().getMensaje(), Toast.LENGTH_LONG).show();
+                        } else {
+                            error.setValue(msj);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Msj> call, Throwable t) {
+                        Log.d("salida",t.getMessage());
+                        t.printStackTrace();
+                    }
+                });
+            }
+            else {
+                error.setValue(msj2);
+            }
+
         } else {
             Toast.makeText(context, "Debe completar todos los campos", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private String encodeImage(Bitmap bm)
+    {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG,100,baos);
+        byte[] b = baos.toByteArray();
+        String encImage = Base64.encodeToString(b, Base64.DEFAULT);
+
+        return encImage;
     }
 
     public void cargarImagen(int requestCode, int resultCode, @Nullable Intent data){

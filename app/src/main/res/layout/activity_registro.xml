@@ -16,8 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -48,7 +46,7 @@
                         android:orientation="vertical"
                         android:layout_marginBottom="8dp">
 
-                        <ImageView
+                        <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/ivFoto"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -63,7 +61,10 @@
                             android:layout_alignParentRight="true"
                             android:layout_alignParentBottom="true"
                             android:layout_margin="1dp"
-                            android:src="@drawable/ic_plus"/>
+                            android:src="@drawable/ic_plus"
+                            android:scaleType="centerCrop"
+                            android:background="#00000000"
+                            />
                     </RelativeLayout>
 
                     <TextView
@@ -181,7 +182,6 @@
                             android:drawablePadding="12dp"
                             android:hint="@string/hint_phone"
                             android:imeOptions="actionNext"
-                            android:inputType="textEmailAddress"
                             android:minWidth="320dp"
                             android:minHeight="45dp"
                             android:singleLine="true" />
@@ -191,6 +191,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/colorTextInputBackground"
                         android:layout_margin="10dp"
                         app:cardCornerRadius="24dp"
                         app:cardElevation="0dp">
