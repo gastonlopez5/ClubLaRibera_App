@@ -39,7 +39,7 @@ public class ApiClient {
 
     public interface MyApiInterface {
 
-        @POST("usuarios/registrar")
+        @POST("Usuarios/registrar")
         Call<Msj> registrarUsuario(@Body Usuario user);
 
         @POST("Usuarios/login")

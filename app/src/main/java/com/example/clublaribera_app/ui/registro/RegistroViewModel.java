@@ -34,8 +34,9 @@ public class RegistroViewModel extends AndroidViewModel {
     private Context context;
     private MutableLiveData<Bitmap> foto;
     private MutableLiveData<String> error;
-    private String msj = "Ya existe un usuario registrado con el email elegido!";
+    private String msj1 = "Ya existe un usuario registrado con el email elegido!";
     private String msj2 = "Ambas claves ingresadas no coinciden";
+    private String msj3 = "Debe completar todos los campos";
 
     public RegistroViewModel(@NonNull Application application) {
         super(application);
@@ -58,19 +59,21 @@ public class RegistroViewModel extends AndroidViewModel {
 
     public void registrarUsuario(Usuario u, Bitmap bitmap, String repetirClave){
         if (u.getNombre().length() != 0 && u.getApellido().length() != 0 && u.getClave().length() != 0
-                && u.getTelefono().length() != 0 && u.getEmail().length() != 0 && repetirClave.length() != 0){
+                && u.getTelefono().length() != 0 && u.getEmail().length() != 0 && repetirClave.length() != 0
+                && u.getTipoUsuario().getId() != 0){
 
-            if (repetirClave == u.getClave()){
+            if (repetirClave.equals(u.getClave())){
                 if(bitmap != null){u.setFotoPerfil(encodeImage(bitmap));}
 
-                Call<Msj> dato= ApiClient.getMyApiClient().registrarUsuario(u);
+                Call<Msj> dato = ApiClient.getMyApiClient().registrarUsuario(u);
                 dato.enqueue(new Callback<Msj>() {
                     @Override
                     public void onResponse(Call<Msj> call, Response<Msj> response) {
-                        if (response.isSuccessful()){
+                        if(response.isSuccessful()){
                             Toast.makeText(context, response.body().getMensaje(), Toast.LENGTH_LONG).show();
-                        } else {
-                            error.setValue(msj);
+                        }
+                        else {
+                            error.setValue(msj1);
                         }
                     }
 
@@ -86,7 +89,7 @@ public class RegistroViewModel extends AndroidViewModel {
             }
 
         } else {
-            Toast.makeText(context, "Debe completar todos los campos", Toast.LENGTH_LONG).show();
+            error.setValue(msj3);
         }
     }
 

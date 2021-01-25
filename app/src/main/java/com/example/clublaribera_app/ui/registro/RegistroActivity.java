@@ -60,14 +60,13 @@ public class RegistroActivity extends AppCompatActivity {
         btFoto = findViewById(R.id.btFoto);
         btRegistro = findViewById(R.id.button_signin);
         ivFoto = findViewById(R.id.ivFoto);
-        tipoUsuario = findViewById(R.id.spTipoUsuario);
 
         cargaSpinner();
 
         vm.getError().observe(this, new Observer<String>() {
             @Override
-            public void onChanged(String s) {
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            public void onChanged(String u) {
+                Toast.makeText(getApplicationContext(), u, Toast.LENGTH_LONG).show();
                 bandera = false;
             }
         });
@@ -98,6 +97,7 @@ public class RegistroActivity extends AppCompatActivity {
                 u.setClave(etClave.getText().toString());
                 u.setEmail(etEmail.getText().toString());
                 u.setTelefono(etTelefono.getText().toString());
+                u.setTipoUsuario((TipoUsuario) tipoUsuario.getSelectedItem());
 
                 vm.registrarUsuario(u, bitmapFoto, etRepetirClave.getText().toString());
 
@@ -106,10 +106,20 @@ public class RegistroActivity extends AppCompatActivity {
                     startActivity(logeo);
                 }
                 else {
+                    fijarDatos(u, bitmapFoto);
                     bandera = true;
                 }
             }
         });
+    }
+
+    private void fijarDatos(Usuario u, Bitmap bitmap){
+        etNombre.setText(u.getNombre());
+        etApellido.setText(u.getApellido());
+        etEmail.setText(u.getEmail());
+        etTelefono.setText(u.getTelefono());
+        tipoUsuario.setSelection(u.getTipoUsuario().getId());
+        ivFoto.setImageBitmap(bitmap);
     }
 
     private void cargaSpinner(){
