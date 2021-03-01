@@ -1,28 +1,41 @@
 package com.example.clublaribera_app.ui.registro;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
+import android.provider.OpenableColumns;
+import android.telephony.SmsManager;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.clublaribera_app.MainActivity;
+import com.example.clublaribera_app.R;
 import com.example.clublaribera_app.modelos.Msj;
 import com.example.clublaribera_app.modelos.Usuario;
 import com.example.clublaribera_app.request.ApiClient;
+import com.example.clublaribera_app.ui.login.LoginActivity;
+import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -35,8 +48,8 @@ public class RegistroViewModel extends AndroidViewModel {
     private MutableLiveData<Bitmap> foto;
     private MutableLiveData<String> error;
     private String msj1 = "Ya existe un usuario registrado con el email elegido!";
-    private String msj2 = "Ambas claves ingresadas no coinciden";
     private String msj3 = "Debe completar todos los campos";
+    private ArrayList<String> permitidos;
 
     public RegistroViewModel(@NonNull Application application) {
         super(application);
@@ -57,36 +70,50 @@ public class RegistroViewModel extends AndroidViewModel {
         return foto;
     }
 
-    public void registrarUsuario(Usuario u, Bitmap bitmap, String repetirClave){
-        if (u.getNombre().length() != 0 && u.getApellido().length() != 0 && u.getClave().length() != 0
-                && u.getTelefono().length() != 0 && u.getEmail().length() != 0 && repetirClave.length() != 0
+    public void registrarUsuario(Usuario u, Bitmap bitmap){
+        if (u.getNombre().length() != 0 && u.getApellido().length() != 0 && u.getTelefono().length() != 0
+                && u.getEmail().length() != 0 && u.getDni().length() != 0
                 && u.getTipoUsuario().getId() != 0){
 
-            if (repetirClave.equals(u.getClave())){
-                if(bitmap != null){u.setFotoPerfil(encodeImage(bitmap));}
+            if(bitmap != null){u.setFotoPerfil(encodeImage(bitmap));}
 
-                Call<Msj> dato = ApiClient.getMyApiClient().registrarUsuario(u);
-                dato.enqueue(new Callback<Msj>() {
-                    @Override
-                    public void onResponse(Call<Msj> call, Response<Msj> response) {
-                        if(response.isSuccessful()){
-                            Toast.makeText(context, response.body().getMensaje(), Toast.LENGTH_LONG).show();
-                        }
-                        else {
-                            error.setValue(msj1);
-                        }
-                    }
+            Gson gson = new Gson();
+            String JSON = gson.toJson(u);
 
-                    @Override
-                    public void onFailure(Call<Msj> call, Throwable t) {
-                        Log.d("salida",t.getMessage());
-                        t.printStackTrace();
+            Call<Msj> dato = ApiClient.getMyApiClient().registrarUsuario(u);
+            dato.enqueue(new Callback<Msj>() {
+                @Override
+                public void onResponse(Call<Msj> call, Response<Msj> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(context, response.body().getMensaje(), Toast.LENGTH_LONG).show();
+
+                        if (u.getTipoUsuario().getId() == 4){
+                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
+                                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.SEND_SMS}, 1);
+                            }
+
+                            SmsManager smsManager = SmsManager.getDefault();
+                            smsManager.sendTextMessage(u.getTelefono(), null,
+                                    "Club La Rivera - Alta de Usuario - Gracias por registrarte "+ u.getNombre() +
+                                    "!! - Tu contraseña es: 4321 - Recuerda modificarla cuando ingreses por primera vez!!",
+                                    null, null);
+                        }
+
+                        Intent logeo = new Intent(context, LoginActivity.class);
+                        logeo.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(logeo);
                     }
-                });
-            }
-            else {
-                error.setValue(msj2);
-            }
+                    else {
+                        error.postValue(msj1);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Msj> call, Throwable t) {
+                    Log.d("salida",t.getMessage());
+                    t.printStackTrace();
+                }
+            });
 
         } else {
             error.setValue(msj3);
@@ -107,6 +134,7 @@ public class RegistroViewModel extends AndroidViewModel {
         if (resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             InputStream imageStream = null;
+
             try {
                 imageStream = context.getContentResolver().openInputStream(imageUri);
             } catch (FileNotFoundException e) {

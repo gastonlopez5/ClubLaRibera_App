@@ -34,14 +34,14 @@ public class RegistroActivity extends AppCompatActivity {
     private EditText etNombre;
     private EditText etApellido;
     private EditText etTelefono;
-    private EditText etRepetirClave;
     private EditText etEmail;
-    private EditText etClave;
+    private EditText etDni;
     private ImageButton btFoto;
     private Button btRegistro;
     private ImageView ivFoto;
     private Bitmap bitmapFoto = null;
     private Boolean bandera = true;
+    private Usuario u;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +52,7 @@ public class RegistroActivity extends AppCompatActivity {
 
         etNombre = findViewById(R.id.et_nombre);
         etApellido = findViewById(R.id.et_apellindo);
-        etClave = findViewById(R.id.et_password);
-        etRepetirClave = findViewById(R.id.et_confirm_password);
+        etDni = findViewById(R.id.et_dni);
         etEmail = findViewById(R.id.et_email);
         etTelefono = findViewById(R.id.et_telefono);
         tipoUsuario = findViewById(R.id.spTipoUsuario);
@@ -65,9 +64,9 @@ public class RegistroActivity extends AppCompatActivity {
 
         vm.getError().observe(this, new Observer<String>() {
             @Override
-            public void onChanged(String u) {
-                Toast.makeText(getApplicationContext(), u, Toast.LENGTH_LONG).show();
-                bandera = false;
+            public void onChanged(String s) {
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                fijarDatos(u, bitmapFoto);
             }
         });
 
@@ -91,24 +90,15 @@ public class RegistroActivity extends AppCompatActivity {
         btRegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Usuario u = new Usuario();
+                u = new Usuario();
                 u.setNombre(etNombre.getText().toString());
                 u.setApellido(etApellido.getText().toString());
-                u.setClave(etClave.getText().toString());
+                u.setDni(etDni.getText().toString());
                 u.setEmail(etEmail.getText().toString());
                 u.setTelefono(etTelefono.getText().toString());
                 u.setTipoUsuario((TipoUsuario) tipoUsuario.getSelectedItem());
 
-                vm.registrarUsuario(u, bitmapFoto, etRepetirClave.getText().toString());
-
-                if (bandera){
-                    Intent logeo = new Intent(RegistroActivity.this, LoginActivity.class);
-                    startActivity(logeo);
-                }
-                else {
-                    fijarDatos(u, bitmapFoto);
-                    bandera = true;
-                }
+                vm.registrarUsuario(u, bitmapFoto);
             }
         });
     }
@@ -118,6 +108,7 @@ public class RegistroActivity extends AppCompatActivity {
         etApellido.setText(u.getApellido());
         etEmail.setText(u.getEmail());
         etTelefono.setText(u.getTelefono());
+        etDni.setText(u.getDni());
         tipoUsuario.setSelection(u.getTipoUsuario().getId());
         ivFoto.setImageBitmap(bitmap);
     }

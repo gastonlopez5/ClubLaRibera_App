@@ -73,7 +73,9 @@
                             android:drawableLeft="@drawable/ic_person"
                             android:drawablePadding="12dp"
                             android:hint="@string/hint_username"
-                            android:imeOptions="actionNext"
+                            android:inputType="textEmailAddress"
+                            android:focusable="false"
+                            android:focusableInTouchMode="true"
                             android:minWidth="320dp"
                             android:minHeight="50dp"
                             android:singleLine="true" />
@@ -110,7 +112,9 @@
                             android:imeOptions="actionDone"
                             android:inputType="textPassword"
                             android:minWidth="320dp"
-                            android:minHeight="45dp" />
+                            android:minHeight="45dp"
+                            android:focusable="false"
+                            android:focusableInTouchMode="true"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </androidx.cardview.widget.CardView>
 
