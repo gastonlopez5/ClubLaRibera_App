@@ -147,6 +147,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
+                            android:inputType="number"
                             android:background="@android:color/transparent"
                             android:drawableStart="@drawable/ic_person"
                             android:drawableLeft="@drawable/ic_person"
@@ -202,6 +203,7 @@
                             android:layout_gravity="center"
                             android:layout_marginLeft="12dp"
                             android:layout_marginRight="12dp"
+                            android:inputType="number"
                             android:background="@android:color/transparent"
                             android:drawableStart="@drawable/ic_phone"
                             android:drawableLeft="@drawable/ic_phone"
@@ -224,6 +226,31 @@
 
                         <Spinner
                             android:id="@+id/spTipoUsuario"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="12dp"
+                            android:layout_marginRight="12dp"
+                            android:background="@android:color/transparent"
+                            android:drawablePadding="12dp"
+                            android:minWidth="320dp"
+                            android:minHeight="45dp"/>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cvCategorias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        app:cardBackgroundColor="@color/colorTextInputBackground"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="24dp"
+                        app:cardElevation="0dp"
+                        android:visibility="invisible">
+
+                        <Spinner
+                            android:id="@+id/spCategoria"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"

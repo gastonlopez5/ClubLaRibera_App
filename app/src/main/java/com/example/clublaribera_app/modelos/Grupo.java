@@ -16,6 +16,11 @@ public class Grupo implements Serializable {
         this.usuario = usuario;
     }
 
+    public Grupo(int id, String nombreGrupo) {
+        this.id = id;
+        this.nombreGrupo = nombreGrupo;
+    }
+
     public int getId() {
         return id;
     }
@@ -38,5 +43,10 @@ public class Grupo implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        return nombreGrupo;
     }
 }

@@ -80,6 +80,12 @@ public class RegistroViewModel extends AndroidViewModel {
             Gson gson = new Gson();
             String JSON = gson.toJson(u);
 
+            u.setClave("4321");
+
+            if (u.getRolId() == 4){
+                u.setEstado(true);
+            }
+
             Call<Msj> dato = ApiClient.getMyApiClient().registrarUsuario(u);
             dato.enqueue(new Callback<Msj>() {
                 @Override

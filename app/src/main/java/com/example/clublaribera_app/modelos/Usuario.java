@@ -13,13 +13,15 @@ public class Usuario implements Serializable {
     private String fotoPerfil;
     private String clave;
     private Boolean estado;
+    private int rolId;
+    private int grupoId;
     private Grupo grupo;
     private TipoUsuario tipoUsuario;
 
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String apellido, String telefono, String dni, String email, String fotoPerfil, String clave, Boolean estado, Grupo grupo, TipoUsuario tipoUsuario) {
+    public Usuario(int id, String nombre, String apellido, String telefono, String dni, String email, String fotoPerfil, String clave, Boolean estado, int rolId, int grupoId, Grupo grupo, TipoUsuario tipoUsuario) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -29,6 +31,8 @@ public class Usuario implements Serializable {
         this.fotoPerfil = fotoPerfil;
         this.clave = clave;
         this.estado = estado;
+        this.rolId = rolId;
+        this.grupoId = grupoId;
         this.grupo = grupo;
         this.tipoUsuario = tipoUsuario;
     }
@@ -103,6 +107,22 @@ public class Usuario implements Serializable {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public int getRolId() {
+        return rolId;
+    }
+
+    public void setRolId(int rolId) {
+        this.rolId = rolId;
+    }
+
+    public int getGrupoId() {
+        return grupoId;
+    }
+
+    public void setGrupoId(int grupoId) {
+        this.grupoId = grupoId;
     }
 
     public Grupo getGrupo() {
