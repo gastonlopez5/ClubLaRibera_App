@@ -73,7 +73,7 @@ public class RegistroViewModel extends AndroidViewModel {
     public void registrarUsuario(Usuario u, Bitmap bitmap){
         if (u.getNombre().length() != 0 && u.getApellido().length() != 0 && u.getTelefono().length() != 0
                 && u.getEmail().length() != 0 && u.getDni().length() != 0
-                && u.getTipoUsuario().getId() != 0){
+                && u.getRolId() != 0){
 
             if(bitmap != null){u.setFotoPerfil(encodeImage(bitmap));}
 
@@ -84,6 +84,7 @@ public class RegistroViewModel extends AndroidViewModel {
 
             if (u.getRolId() == 4){
                 u.setEstado(true);
+                u.setGrupoId(11);
             }
 
             Call<Msj> dato = ApiClient.getMyApiClient().registrarUsuario(u);
@@ -93,7 +94,7 @@ public class RegistroViewModel extends AndroidViewModel {
                     if(response.isSuccessful()){
                         Toast.makeText(context, response.body().getMensaje(), Toast.LENGTH_LONG).show();
 
-                        if (u.getTipoUsuario().getId() == 4){
+                        if (u.getRolId() == 4){
                             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
                                 ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.SEND_SMS}, 1);
                             }

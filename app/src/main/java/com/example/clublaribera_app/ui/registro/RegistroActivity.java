@@ -47,6 +47,7 @@ public class RegistroActivity extends AppCompatActivity {
     private Boolean bandera = true;
     private Usuario u;
     private ArrayList<TipoUsuario> lista = new ArrayList<TipoUsuario>();
+    private ArrayList<Grupo> categorias = new ArrayList<Grupo>();
     private CardView cardViewCategorias;
 
     @Override
@@ -121,8 +122,8 @@ public class RegistroActivity extends AppCompatActivity {
                 u.setDni(etDni.getText().toString());
                 u.setEmail(etEmail.getText().toString());
                 u.setTelefono(etTelefono.getText().toString());
-                u.setRolId(tipoUsuario.getSelectedItemPosition());
-                u.setGrupoId(categoria.getSelectedItemPosition());
+                u.setRolId(lista.get(tipoUsuario.getSelectedItemPosition()).getId());
+                u.setGrupoId(categorias.get(categoria.getSelectedItemPosition()).getId());
 
                 vm.registrarUsuario(u, bitmapFoto);
             }
@@ -141,8 +142,6 @@ public class RegistroActivity extends AppCompatActivity {
 
     private void cargaSpinner(){
 
-        ArrayList<Grupo> categorias = new ArrayList<Grupo>();
-
         lista.add(new TipoUsuario(0, "Elije tu rol dentro de la institución"));
         lista.add(new TipoUsuario(2, "Padre o Tutor"));
         lista.add(new TipoUsuario(3, "Profesor"));
@@ -150,14 +149,13 @@ public class RegistroActivity extends AppCompatActivity {
 
         categorias.add(new Grupo(0, "Elije una categoría"));
         categorias.add(new Grupo(1, "Categoría 2004"));
-        categorias.add(new Grupo(1, "Categoría 2005"));
-        categorias.add(new Grupo(1, "Categoría 2007"));
-        categorias.add(new Grupo(1, "Categoría 2008"));
-        categorias.add(new Grupo(1, "Categoría 2009"));
-        categorias.add(new Grupo(1, "Categoría 2010"));
-        categorias.add(new Grupo(1, "Categoría 2011"));
-        categorias.add(new Grupo(1, "Categoría 2012"));
-        categorias.add(new Grupo(1, "Categoría 2013"));
+        categorias.add(new Grupo(2, "Categoría 2005"));
+        categorias.add(new Grupo(3, "Categoría 2007"));
+        categorias.add(new Grupo(4, "Categoría 2008"));
+        categorias.add(new Grupo(5, "Categoría 2009"));
+        categorias.add(new Grupo(6, "Categoría 2011"));
+        categorias.add(new Grupo(7, "Categoría 2012"));
+        categorias.add(new Grupo(8, "Categoría 2013"));
 
         ArrayAdapter<TipoUsuario> adapter = new ArrayAdapter<TipoUsuario>(this, R.layout.support_simple_spinner_dropdown_item, lista);
         tipoUsuario.setAdapter(adapter);
