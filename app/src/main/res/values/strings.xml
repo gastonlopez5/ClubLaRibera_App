@@ -26,4 +26,8 @@
     <string name="hint_confirm_password">Repetir clave</string>
     <string name="button_sign_up">Registrarme</string>
     <string name="text_signup_terms">Enviando los datos, estás de acuerdo con los <b>términos y condiciones</b></string>
+
+    <string name="text_forgot_password_title">¿Te olvidaste la clave? No te preocupes</string>
+    <string name="text_forgot_password_message">Recibirás un mail para que recuperes tu contraseña</string>
+    <string name="button_send">Enviar</string>
 </resources>

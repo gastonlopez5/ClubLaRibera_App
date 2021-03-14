@@ -44,5 +44,8 @@ public class ApiClient {
 
         @POST("Usuarios/login")
         Call<String> login(@Body Login login);
+
+        @POST("Usuarios/recuperarpass")
+        Call<Msj> recuperarPass(@Body String email);
     }
 }

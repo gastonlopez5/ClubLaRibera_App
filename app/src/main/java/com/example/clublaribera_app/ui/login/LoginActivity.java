@@ -14,11 +14,13 @@ import android.widget.Toast;
 
 import com.example.clublaribera_app.MainActivity;
 import com.example.clublaribera_app.R;
+import com.example.clublaribera_app.ui.forgotpass.ForgotPassActivity;
 import com.example.clublaribera_app.ui.registro.RegistroActivity;
 
 public class LoginActivity extends AppCompatActivity {
     private Button logeo;
     private Button registro;
+    private Button recuperarPass;
     private EditText email;
     private EditText password;
     private LoginViewModel vm;
@@ -32,6 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
         logeo = (Button)findViewById(R.id.button_signin);
         registro = findViewById(R.id.button_signup);
+        recuperarPass = findViewById(R.id.button_forgot_password);
         email = findViewById(R.id.et_username);
         password = findViewById(R.id.et_password);
 
@@ -48,6 +51,14 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+            }
+        });
+
+        recuperarPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent forgotPass = new Intent(LoginActivity.this, ForgotPassActivity.class);
+                startActivity(forgotPass);
             }
         });
 

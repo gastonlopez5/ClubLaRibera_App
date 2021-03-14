@@ -23,6 +23,7 @@ public class LoginViewModel extends AndroidViewModel {
     MutableLiveData<String> msg1;
     MutableLiveData<String> msg2;
     private Context context;
+
     private String error1 = "Usuario o Password incorrectos";
 
     public LoginViewModel(@NonNull Application application) {
