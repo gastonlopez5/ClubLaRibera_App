@@ -136,7 +136,7 @@ public class RegistroActivity extends AppCompatActivity {
         etEmail.setText(u.getEmail());
         etTelefono.setText(u.getTelefono());
         etDni.setText(u.getDni());
-        tipoUsuario.setSelection(u.getTipoUsuario().getId());
+        tipoUsuario.setSelection(u.getRolId());
         ivFoto.setImageBitmap(bitmap);
     }
 

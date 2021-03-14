@@ -80,7 +80,7 @@ public class RegistroViewModel extends AndroidViewModel {
             Gson gson = new Gson();
             String JSON = gson.toJson(u);
 
-            u.setClave("4321");
+            //u.setClave("4321");
 
             if (u.getRolId() == 4){
                 u.setEstado(true);
@@ -93,18 +93,6 @@ public class RegistroViewModel extends AndroidViewModel {
                 public void onResponse(Call<Msj> call, Response<Msj> response) {
                     if(response.isSuccessful()){
                         Toast.makeText(context, response.body().getMensaje(), Toast.LENGTH_LONG).show();
-
-                        if (u.getRolId() == 4){
-                            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.SEND_SMS) != PackageManager.PERMISSION_GRANTED){
-                                ActivityCompat.requestPermissions((Activity) context, new String[]{Manifest.permission.SEND_SMS}, 1);
-                            }
-
-                            SmsManager smsManager = SmsManager.getDefault();
-                            smsManager.sendTextMessage(u.getTelefono(), null,
-                                    "Club La Rivera - Alta de Usuario - Gracias por registrarte "+ u.getNombre() +
-                                    "!! - Tu contraseña es: 4321 - Recuerda modificarla cuando ingreses por primera vez!!",
-                                    null, null);
-                        }
 
                         Intent logeo = new Intent(context, LoginActivity.class);
                         logeo.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
