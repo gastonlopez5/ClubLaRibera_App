@@ -13,7 +13,6 @@
     <fragment
         android:id="@+id/nav_cerrarsesion"
         android:name="com.example.clublaribera_app.ui.logout.CerrarSesionFragment"
-        android:label="fragment_cerrar_sesion"
         tools:layout="@layout/fragment_cerrar_sesion" />
 
 
