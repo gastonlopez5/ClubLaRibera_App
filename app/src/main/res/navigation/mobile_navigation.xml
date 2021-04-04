@@ -10,6 +10,11 @@
         android:name="com.example.clublaribera_app.ui.home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
+    <fragment
+        android:id="@+id/nav_cerrarsesion"
+        android:name="com.example.clublaribera_app.ui.logout.CerrarSesionFragment"
+        android:label="fragment_cerrar_sesion"
+        tools:layout="@layout/fragment_cerrar_sesion" />
 
 
 </navigation>
