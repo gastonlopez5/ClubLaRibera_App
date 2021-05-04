@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent forgotPass = new Intent(LoginActivity.this, ForgotPassActivity.class);
                 startActivity(forgotPass);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -68,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent registro = new Intent(LoginActivity.this, RegistroActivity.class);
                 startActivity(registro);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
