@@ -21,22 +21,6 @@ public class Usuario implements Serializable {
     public Usuario() {
     }
 
-    public Usuario(int id, String nombre, String apellido, String telefono, String dni, String email, String fotoPerfil, String clave, Boolean estado, int rolId, int grupoId, Grupo grupo, TipoUsuario tipoUsuario) {
-        this.id = id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.telefono = telefono;
-        this.dni = dni;
-        this.email = email;
-        this.fotoPerfil = fotoPerfil;
-        this.clave = clave;
-        this.estado = estado;
-        this.rolId = rolId;
-        this.grupoId = grupoId;
-        this.grupo = grupo;
-        this.tipoUsuario = tipoUsuario;
-    }
-
     public int getId() {
         return id;
     }

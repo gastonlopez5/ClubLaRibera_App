@@ -5,15 +5,10 @@ import java.io.Serializable;
 public class Grupo implements Serializable {
     private int id;
     private String nombreGrupo;
+    private int idResponsable;
     private Usuario usuario;
 
     public Grupo() {
-    }
-
-    public Grupo(int id, String nombreGrupo, Usuario usuario) {
-        this.id = id;
-        this.nombreGrupo = nombreGrupo;
-        this.usuario = usuario;
     }
 
     public Grupo(int id, String nombreGrupo) {
