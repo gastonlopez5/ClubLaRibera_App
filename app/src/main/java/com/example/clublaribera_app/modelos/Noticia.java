@@ -5,6 +5,7 @@ import java.io.Serializable;
 public class Noticia implements Serializable {
     private int id;
     private String titulo;
+    private String urlImagen;
     private String detalle;
     private String fecha;
     private int usuarioId;
@@ -15,6 +16,14 @@ public class Noticia implements Serializable {
     private Categoria categoria;
 
     public Noticia() {
+    }
+
+    public String getUrlImagen() {
+        return urlImagen;
+    }
+
+    public void setUrlImagen(String urlImagen) {
+        this.urlImagen = urlImagen;
     }
 
     public int getId() {
